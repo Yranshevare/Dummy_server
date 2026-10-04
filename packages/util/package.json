@@ -1,0 +1,19 @@
+{
+    "name": "@workspace/util",
+    "module": "index.ts",
+    "type": "module",
+    "private": true,
+    "exports": {
+        "./*": "./src/*.ts"
+    },
+    "devDependencies": {
+        "@types/bun": "latest"
+    },
+    "peerDependencies": {
+        "typescript": "^5"
+    },
+    "dependencies": {
+        "@types/node": "^26.6.4",
+        "yaml": "^2.9.1"
+    }
+}
