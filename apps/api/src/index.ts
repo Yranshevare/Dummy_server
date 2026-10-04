@@ -4,17 +4,16 @@ import { CONFIG_PATH } from "@workspace/util/constant";
 import { yamlParser } from "@workspace/util/yaml-parser";
 import { Hono } from "hono";
 import finder from "./finder";
-import { HTTP_STATUS } from "@workspace/util/status-codes";
 
 const app = new Hono();
 
 const config = await yamlParser<ConfigType>(CONFIG_PATH);
 
 app.all("*", async (c) => {
-    const path: string = new URL(c.req.url).pathname;
+    const route: string = new URL(c.req.url).pathname;
     const method: MethodType = c.req.method as MethodType;
 
-    const result = await finder(path, method);
+    const result = await finder(route, method);
 
     if (!result.success) {
         // @ts-ignore

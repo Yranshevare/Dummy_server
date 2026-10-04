@@ -1,26 +1,23 @@
 import { MethodType } from "@workspace/types/method-type";
 import { responseType } from "@workspace/types/response-type";
-import retrieveDelete from "./retrieve-delete";
-import retrieveGet from "./retrieve-get";
-import retrievePatch from "./retrieve-patch";
-import retrievePost from "./retrieve-post";
-import retrievePut from "./retrieve-put";
 import error from "../util/error";
 import { HTTP_STATUS } from "@workspace/util/status-codes";
+import retrieve from "./retrieve";
+import { DELETE_PATH, GET_PATH, PATCH_PATH, POST_PATH, PUT_PATH } from "@workspace/util/constant";
 
-async function finder(path: string, method: MethodType): Promise<responseType> {
+async function finder(route: string, method: MethodType): Promise<responseType> {
     try {
         switch (method) {
             case "GET":
-                return await retrieveGet(path);
+                return await retrieve(route, GET_PATH);
             case "POST":
-                return await retrievePost(path);
+                return await retrieve(route, POST_PATH);
             case "PUT":
-                return await retrievePut(path);
+                return await retrieve(route, PUT_PATH);
             case "PATCH":
-                return await retrievePatch(path);
+                return await retrieve(route, PATCH_PATH);
             case "DELETE":
-                return await retrieveDelete(path);
+                return await retrieve(route, DELETE_PATH);
             default:
                 return {
                     success: false,
