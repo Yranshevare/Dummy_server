@@ -4,6 +4,7 @@ import { CONFIG_PATH } from "@workspace/util/constant";
 import { yamlParser } from "@workspace/util/yaml-parser";
 import { Hono } from "hono";
 import finder from "./finder";
+import simulator from "./simulator";
 
 const app = new Hono();
 
@@ -22,8 +23,17 @@ app.all("*", async (c) => {
 
     const data = result.data;
 
-    return c.json(data, data.responseStatus);
+    const res = await simulator(data);
+
+    console.log(res)
+    
+
+    return c.json(res.data, data.responseStatus);
 });
+
+app.get("/test",async (c) => {
+    return c.json({id:123, name:"test", email:"test@test"}, 200);
+})
 
 export default {
     port: config?.api?.port || 3001,
