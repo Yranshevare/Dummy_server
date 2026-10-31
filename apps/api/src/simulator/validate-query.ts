@@ -14,10 +14,13 @@ export default function validateQuery(rules: Record<string, query>, query: Recor
         if (param && value.type) {
             let typeError = false;
 
-            if (value.type.type === "number" && !isNumeric(param)) {
-                typeError = true;
-            } else if (value.type.type === "boolean" && !isBoolean(param)) {
-                typeError = true;
+            switch (value.type.type) {
+                case "number":
+                    if (!isNumeric(param)) typeError = true;
+                    break;
+                case "boolean":
+                    if (!isBoolean(param)) typeError = true;
+                    break;
             }
 
             if (typeError) throw new error("invalid query type", value.type.error.responseStatus, value.type.error.body);
