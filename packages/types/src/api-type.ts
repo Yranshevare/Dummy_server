@@ -1,12 +1,13 @@
-type GET = {
+import type { query } from "./query-type";
+ 
+
+type apiType = {
     method: "GET";
     latency?: number;
     response: any;
     responseStatus: number;
     params?: Record<string, string>;
-    query?: Record<string, string>;
-};
+    query?: Record<string, query>;
+};;
 
-type apiType = GET;
-
-export type { GET, apiType };
+export type { apiType };

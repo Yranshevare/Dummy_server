@@ -5,6 +5,7 @@ import { yamlParser } from "@workspace/util/yaml-parser";
 import { Hono } from "hono";
 import finder from "./finder";
 import simulator from "./simulator";
+import { HTTP_STATUS } from "@workspace/util/status-codes";
 
 const app = new Hono();
 
@@ -13,6 +14,7 @@ const config = await yamlParser<ConfigType>(CONFIG_PATH);
 app.all("*", async (c) => {
     const route: string = new URL(c.req.url).pathname;
     const method: MethodType = c.req.method as MethodType;
+    const query = c.req.query();
 
     const result = await finder(route, method);
 
@@ -23,17 +25,32 @@ app.all("*", async (c) => {
 
     const data = result.data;
 
-    const res = await simulator(data);
+    if (!data) {
+        return c.json(
+            {
+                message: "try configuring your api properly",
+                error: "ERROR FROM DUMMY SERVER: not data to simulate API",
+            },
+            HTTP_STATUS.INTERNAL_SERVER_ERROR
+        );
+    }
 
-    console.log(res)
-    
+    const res = await simulator(data, query);
 
+    // console.log(res)
+
+    if (!res.success) {
+        // @ts-ignore
+        return c.json({ message: res.message, error: res.error }, res.status); // for some reason result.status is giving type error (type of result.status is number) for no reason, so ignoring it for now.
+    }
+
+    // @ts-ignore
     return c.json(res.data, data.responseStatus);
 });
 
-app.get("/test",async (c) => {
-    return c.json({id:123, name:"test", email:"test@test"}, 200);
-})
+app.get("/test", async (c) => {
+    return c.json({ id: 123, name: "test", email: "test@test" }, 200);
+});
 
 export default {
     port: config?.api?.port || 3001,

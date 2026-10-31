@@ -1,6 +1,8 @@
+import type { apiType } from "./api-type";
+
 type responseType = {
     success: boolean;
-    data?: any;
+    data?: apiType;
     message: string;
     error?: string;
     status: number;
