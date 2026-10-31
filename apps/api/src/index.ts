@@ -23,29 +23,29 @@ app.all("*", async (c) => {
         return c.json({ message: result.message, error: result.error }, result.status); // for some reason result.status is giving type error (type of result.status is number) for no reason, so ignoring it for now.
     }
 
-    const data = result.data;
+    const apiConfig = result.data;
 
-    if (!data) {
+    if (!apiConfig) {
         return c.json(
             {
                 message: "try configuring your api properly",
-                error: "ERROR FROM DUMMY SERVER: not data to simulate API",
+                error: "ERROR FROM DUMMY SERVER: no data to simulate API",
             },
             HTTP_STATUS.INTERNAL_SERVER_ERROR
         );
     }
 
-    const res = await simulator(data, query);
+    const res = await simulator(apiConfig, query);
 
     // console.log(res)
 
     if (!res.success) {
         // @ts-ignore
-        return c.json({ message: res.message, error: res.error }, res.status); // for some reason result.status is giving type error (type of result.status is number) for no reason, so ignoring it for now.
+        return c.json(res.data, res.status); // for some reason result.status is giving type error (type of result.status is number) for no reason, so ignoring it for now.
     }
 
     // @ts-ignore
-    return c.json(res.data, data.responseStatus);
+    return c.json(res.data, apiConfig.responseStatus);
 });
 
 app.get("/test", async (c) => {

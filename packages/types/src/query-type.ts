@@ -1,18 +1,17 @@
-type queryType = {
-    type: string;
-    errorMessage: string;
-    responseStatus: number;
-}
-
 type queryErrorType = {
-    errorMessage: string;
+    body: any;
     responseStatus: number;
-}
+};
+
+type queryType = {
+    type: "string" | "number" | "boolean";
+    error: queryErrorType;
+};
 
 type query = {
-    type : queryType
-    required : boolean
-    error : queryErrorType
-}
+    type?: queryType;
+    required: boolean;
+    error: queryErrorType;
+};
 
 export type { query, queryType, queryErrorType };

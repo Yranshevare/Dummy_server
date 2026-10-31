@@ -23,8 +23,8 @@ export default async function simulator(data: apiType, query: Record<string, str
         };
     } catch (error) {
         // just throw error in validation code this catch will handle that
-        console.log(error);
         return {
+            data: (error as error).data,
             success: false,
             status: (error as error).statusCode || HTTP_STATUS.INTERNAL_SERVER_ERROR,
             error: (error as error).message,
