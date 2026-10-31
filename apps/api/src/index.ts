@@ -16,6 +16,7 @@ app.all("*", async (c) => {
     const method: MethodType = c.req.method as MethodType;
     const query = c.req.query();
 
+    // retrieving api config
     const result = await finder(route, method);
 
     if (!result.success) {
@@ -25,6 +26,7 @@ app.all("*", async (c) => {
 
     const apiConfig = result.data;
 
+    // error for missing api config 
     if (!apiConfig) {
         return c.json(
             {
@@ -35,17 +37,18 @@ app.all("*", async (c) => {
         );
     }
 
+    // simulating api: validation / latency
     const res = await simulator(apiConfig, query);
 
-    // console.log(res)
-
-    if (!res.success) {
+    if (!res.success) { // if validation failed
+        // return the user defined response
         // @ts-ignore
-        return c.json(res.data, res.status); // for some reason result.status is giving type error (type of result.status is number) for no reason, so ignoring it for now.
+        return c.json(res.data, res.status); // for some reason res.status is giving type error (type of res.status is number) for no reason, so ignoring it for now.
     }
 
+    // if no error occur then return response
     // @ts-ignore
-    return c.json(res.data, apiConfig.responseStatus);
+    return c.json(apiConfig.response, apiConfig.responseStatus);     // for some reason apiConfig.responseStatus is giving type error (type of apiConfig.responseStatus is number) for no reason, so ignoring it for now.
 });
 
 app.get("/test", async (c) => {
