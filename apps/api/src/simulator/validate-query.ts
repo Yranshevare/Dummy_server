@@ -1,5 +1,7 @@
 import { query } from "@workspace/types/query-type";
 import error from "../util/error";
+import isNumeric from "../util/is-numeric";
+import isBoolean from "../util/is-boolean";
 
 export default function validateQuery(rules: Record<string, query>, query: Record<string, string>) {
     Object.entries(rules).forEach(([key, value]: [string, query]) => {
@@ -26,20 +28,4 @@ export default function validateQuery(rules: Record<string, query>, query: Recor
             if (typeError) throw new error("invalid query type", value.type.error.responseStatus, value.type.error.body);
         }
     });
-}
-
-function isNumeric(str: string): boolean {
-    if (/^\d+$/.test(str)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function isBoolean(str: string): boolean {
-    if (str === "true" || str === "false") {
-        return true;
-    } else {
-        return false;
-    }
 }
