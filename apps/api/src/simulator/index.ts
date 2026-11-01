@@ -4,7 +4,7 @@ import latency from "./latency";
 import validateQuery from "./validate-query";
 import { responseType } from "@workspace/types/response-type";
 import { apiType } from "@workspace/types/api-type";
-import validateData from "./validadte-data";
+import validateData from "./validate-data";
 
 export default async function simulator(data: apiType, query: Record<string, string>, body:any): Promise<responseType> {
     try {
@@ -16,8 +16,8 @@ export default async function simulator(data: apiType, query: Record<string, str
         }
 
         // data validation (for put/post/patch only)
-        if(["PUT", "POST", "PATCH"].includes(data.method) && data.body && body) {
-            validateData(data.body, body);
+        if(["PUT", "POST", "PATCH"].includes(data.method) ) {
+            validateData(data.body || {}, body);
         }
 
         return {

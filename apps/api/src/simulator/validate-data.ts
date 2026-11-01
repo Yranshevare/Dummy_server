@@ -17,6 +17,11 @@ export default function validateData(rules: Record<string, body>, data: Record<s
         if (param && value.type) {
             if (!typeCheck(param, value.type)) throw new error("invalid query type", value.type.error.responseStatus, value.type.error.body);
         }
+
+        // equals validation
+        if (param && value.equals) {
+            if (param !== value.equals.value) throw new error("invalid query value", value.equals.error.responseStatus, value.equals.error.body);
+        }
     });
 }
 
