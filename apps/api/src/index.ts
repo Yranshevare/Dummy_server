@@ -6,6 +6,7 @@ import { Hono } from "hono";
 import finder from "./finder";
 import simulator from "./simulator";
 import { HTTP_STATUS } from "@workspace/util/status-codes";
+import { getCookie, setCookie } from "hono/cookie";
 
 const app = new Hono();
 
@@ -42,14 +43,39 @@ app.all("*", async (c) => {
         );
     }
 
+
     // simulating api: validation / latency
-    const res = await simulator(apiConfig, query, body);
+    const res = await simulator(apiConfig, query, body, getCookie(c));
 
     if (!res.success) {
         // if validation failed
         // return the user defined response
         // @ts-ignore
         return c.json(res.data, res.status); // for some reason res.status is giving type error (type of res.status is number) for no reason, so ignoring it for now.
+    }
+
+    // if validation passed and response is successful then set cookies if any
+    if (apiConfig.setCookies) {
+        console.log("setting cookies", apiConfig.setCookies);
+        Object.entries(apiConfig.setCookies).forEach(([key, cookie]) => {
+            if (!cookie.value) {
+                return c.json(
+                    {
+                        message: "no cookie value provided for cookie: " + key,
+                        error: "ERROR FROM DUMMY SERVER: no cookie value provided for cookie: " + key,
+                    },
+                    HTTP_STATUS.INTERNAL_SERVER_ERROR
+                );
+            }
+
+            setCookie(c, key, cookie.value, {
+                path: cookie.path,
+                httpOnly: cookie.httpOnly,
+                maxAge: cookie.maxAge,
+                secure: cookie.secure,
+                sameSite: cookie.sameSite,
+            });
+        });
     }
 
     // if no error occur then return response

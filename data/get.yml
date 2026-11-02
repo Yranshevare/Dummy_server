@@ -1,0 +1,76 @@
+# to test cookies
+/api/temp:
+  method: GET
+  latency: 200
+  setCookies:
+    session_id:
+      value: "abc123"
+      httpOnly: true
+      secure: true
+      maxAge: 3600
+      path: "/"
+      sameSite: "Strict"
+    temp_cookie:
+      value: "temp_value"
+  getCookies:
+    session_id: 
+      type:
+        type : "string"
+        error:
+          body:
+            message: "session_id must be a string."
+            error: "session_id must be a string."
+          responseStatus: 400
+      equals:
+        value: "abc123"
+        error:
+          body:
+            message: "session_id is invalid."
+            error: "session_id is invalid."
+          responseStatus: 400
+  response:
+    body:
+      message: "Temporary data retrieved successfully"
+    responseStatus: 200
+
+# to test query 
+/api/user:
+  method: GET
+  latency: 200
+  query:
+    name: 
+      required: true
+      error:
+        body:
+          message: "Name is required."
+          error: "Name is required."
+        responseStatus: 400
+    id: 
+      type: 
+        type : number
+        error:
+          body:
+            message: "id must be a number."
+            error: "id must be a number."
+          responseStatus: 400
+    admin:
+      type:
+        type : boolean
+        error: 
+          body:
+            message: "admin must be a boolean."
+            error: "admin must be a boolean."
+          responseStatus: 400
+      required: true
+      error:
+        body:
+          message: "admin is required."
+          error: "admin is required."
+        responseStatus: 400
+  response:
+    body:
+      id: 123
+      name: "John Doe"
+      email: "3QYtI@example.com"
+    message: "User data retrieved successfully"
+  responseStatus: 200

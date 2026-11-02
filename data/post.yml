@@ -1,0 +1,85 @@
+#  to test body validation
+/api/user:
+  method: POST
+  body:
+    username: 
+      type: 
+        type : json
+        body:
+          Fname:
+            type: 
+              type : string
+              error:
+                body:
+                  message: "Fname must be a string."
+                  error: "Fname must be a string."
+                responseStatus: 400
+            required: true
+            error:
+              body:
+                message: "Fname is required."
+                error: "Fname is required."
+              responseStatus: 400
+            equals:
+              value: "abc"
+              error:
+                body:
+                  message: "Fname is invalid."
+                  error: "Fname is invalid."
+                responseStatus: 400
+          Lname:
+            type:
+              type : string
+              error:
+                body:
+                  message: "Lname must be a string."
+                  error: "Lname must be a string."
+                responseStatus: 400
+            equals:
+              value: "xyz"
+              error:
+                body:
+                  message: "Lname is invalid."
+                  error: "Lname is invalid."
+                responseStatus: 400
+        error:
+          body:
+            message: "username must be a valid json."
+            error: "username must be a valid json."
+          responseStatus: 400
+      required: true
+      error:
+        body:
+          message: "username is required."
+          error: "username is required."
+        responseStatus: 400
+    password:
+      type: 
+        type : string
+        error:
+          body:
+            message: "password must be a string."
+            error: "password must be a string."
+          responseStatus: 400
+      required: true
+      error:
+        body:
+          message: "password is required."
+          error: "password is required."
+        responseStatus: 400
+      equals:
+        value: "123456"
+        error:
+          body:
+            message: "password is invalid."
+            error: "password is invalid."
+          responseStatus: 400
+  responseStatus: 201
+  response:
+    status: 201
+    body:
+      message: "User created successfully"
+      data:
+        id: 123
+        name: abc
+        email: abc@xyz

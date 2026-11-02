@@ -5,10 +5,22 @@ import validateQuery from "./validate-query";
 import { responseType } from "@workspace/types/response-type";
 import { apiType } from "@workspace/types/api-type";
 import validateData from "./validate-data";
+import validateCookies from "./validate-cookies";
 
-export default async function simulator(data: apiType, query: Record<string, string>, body:any): Promise<responseType> {
+export default async function simulator(
+    data: apiType,
+    query: Record<string, string>,
+    body: any,
+    cookies: Record<string, string>
+): Promise<responseType> {
     try {
-        await latency(data.latency || 0); // Simulate latency
+        // cookie validation
+        if (data.getCookies) {
+            validateCookies(data.getCookies, cookies);
+        }
+
+        // Simulate latency
+        await latency(data.latency || 0); 
 
         // query validation
         if (data.query) {
@@ -16,7 +28,7 @@ export default async function simulator(data: apiType, query: Record<string, str
         }
 
         // data validation (for put/post/patch only)
-        if(["PUT", "POST", "PATCH"].includes(data.method) ) {
+        if (["PUT", "POST", "PATCH"].includes(data.method)) {
             validateData(data.body || {}, body);
         }
 
