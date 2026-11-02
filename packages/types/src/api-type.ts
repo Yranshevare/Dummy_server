@@ -4,7 +4,7 @@ import type { query } from "./query-type";
  
 
 type apiType = {
-    method: "GET";
+    method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "PUT";
     latency?: number;
     response: any;
     responseStatus: number;
