@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import NavBar from "@/components/nav-bar";
+import { AllApiProvider } from "@/module/all-api/provider/all-api";
 
 const poppins = Poppins({
     variable: "--font-poppins",
@@ -25,7 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <SidebarProvider style={{ "--sidebar-width-icon": "4rem" } as React.CSSProperties}>
                     <NavBar />
                     <SidebarTrigger />
-                    {children}
+                    <AllApiProvider>{children}</AllApiProvider>
                 </SidebarProvider>
             </body>
         </html>
