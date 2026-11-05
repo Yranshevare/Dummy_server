@@ -1,35 +1,33 @@
-import React from "react";
-import SearchBar from "../../../components/search-bar";
-import { Separator } from "../../../components/ui/separator";
+import ApiListTable from "@/components/api-list-table";
+import SearchBar from "@/components/search-bar";
+import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
-import ApiListTable from "../../../components/api-list-table";
-import { useDataProvider } from "../../../lib/data-provider";
+import Image from "next/image";
 
-// const api = [
-//     {
-//         id: 1,
-//         api: "/api/users",
-//         method: "GET",
-//     },
-//     {
-//         id: 2,
-//         api: "/api/users",
-//         method: "GET",
-//     },
-//     {
-//         id: 3,
-//         api: "/api/users",
-//         method: "GET",
-//     },
-//     {
-//         id: 4,
-//         api: "/api/users",
-//         method: "GET",
-//     },
-// ];
+const api = [
+    {
+        id: 1,
+        api: "/api/users",
+        method: "GET",
+    },
+    {
+        id: 2,
+        api: "/api/users",
+        method: "GET",
+    },
+    {
+        id: 3,
+        api: "/api/users",
+        method: "GET",
+    },
+    {
+        id: 4,
+        api: "/api/users",
+        method: "GET",
+    },
+];
 
-export default function Get() {
-    const { api }: any = useDataProvider();
+export default function Home() {
     return (
         <div className="w-full flex flex-col items-center mx-5">
             <div className="w-full flex justify-between my-5">
