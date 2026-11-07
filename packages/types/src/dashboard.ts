@@ -2,16 +2,11 @@ type allowMethods = "get" | "post" | "put" | "patch" | "delete" | "all"
 
 type ListType = {
     api: string;
-    method: string;
+    method: allowMethods;
 };
 
 type apiListType = {
-    get: ListType[];
-    post: ListType[];
-    put: ListType[];
-    patch: ListType[];
-    delete: ListType[];
-    all: ListType[];
+    [K in allowMethods]: ListType[];
 };
 
 export type { allowMethods, ListType, apiListType };

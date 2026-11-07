@@ -1,7 +1,11 @@
 import { DatabaseX, SquarePen } from "lucide-react";
 import React from "react";
+import { useRouter } from "next/navigation";
+import { allowMethods } from "@workspace/types/dashboard";
 
-export default function ApiListTable({ api }: { api: {api: string; method: string }[] }) {
+export default function ApiListTable({ api }: { api: { api: string; method: allowMethods }[] }) {
+    const router = useRouter();
+
     return (
         <div className="w-full overflow-hidden rounded-xl border border-gray-200 bg-white">
             {/* Table Header */}
@@ -10,7 +14,9 @@ export default function ApiListTable({ api }: { api: {api: string; method: strin
                     <h3 className="font-semibold text-lg text-gray-800">API Endpoints</h3>
                     <p className="text-sm text-gray-400 mt-1">Manage your registered API endpoints</p>
                 </div>
-                <span className="text-xs font-medium text-green-700 bg-green-50 border border-green-100 px-3 py-1.5 rounded-full">{api.length} Active</span>
+                <span className="text-xs font-medium text-green-700 bg-green-50 border border-green-100 px-3 py-1.5 rounded-full">
+                    {api.length} Active
+                </span>
             </div>
 
             <table className="w-full border-collapse">
@@ -25,7 +31,13 @@ export default function ApiListTable({ api }: { api: {api: string; method: strin
 
                 <tbody className="divide-y divide-gray-100">
                     {api.map((item, index) => (
-                        <tr key={index} className="group hover:bg-gray-50/80 cursor-pointer transition-colors duration-150">
+                        <tr
+                            onClick={() => {
+                                router.push(`/${item.method.toLocaleLowerCase()}/${encodeURIComponent(item.api)}/view`);
+                            }}
+                            key={index}
+                            className="group hover:bg-gray-50/80 cursor-pointer transition-colors duration-150"
+                        >
                             <td className="px-5 py-4 text-center text-xs text-gray-400 font-medium">{String(index + 1).padStart(2, "0")}</td>
 
                             <td className="px-5 py-4">
@@ -35,11 +47,11 @@ export default function ApiListTable({ api }: { api: {api: string; method: strin
                             <td className="px-5 py-4 text-center">
                                 <span
                                     className={`inline-flex items-center px-3 py-1 rounded-md text-xs font-semibold ${
-                                        item.method === "GET"
+                                        item.method.toLocaleUpperCase() === "GET"
                                             ? "bg-emerald-50 text-emerald-700"
-                                            : item.method === "POST"
+                                            : item.method.toLocaleUpperCase() === "POST"
                                               ? "bg-blue-50 text-blue-700"
-                                              : item.method === "PUT"
+                                              : item.method.toLocaleUpperCase() === "PUT"
                                                 ? "bg-amber-50 text-amber-700"
                                                 : "bg-red-50 text-red-700"
                                     }`}
