@@ -8,21 +8,8 @@ this context provider is used at @/app/(frontend)/layout.tsx
 import readYaml from "@/lib/read-ymal";
 import { apiType } from "@workspace/types/api-type";
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { DUMMY_PATH, CONFIG_PATH, REST_PATH, GET_PATH, POST_PATH, PUT_PATH, PATCH_PATH, DELETE_PATH } from "@workspace/util/constant";
-
-type ListType = {
-    api: string;
-    method: string;
-};
-
-type apiListType = {
-    get: ListType[];
-    post: ListType[];
-    put: ListType[];
-    patch: ListType[];
-    delete: ListType[];
-    all: ListType[];
-};
+import { GET_PATH, POST_PATH, PUT_PATH, PATCH_PATH, DELETE_PATH } from "@workspace/util/constant";
+import { apiListType } from "@workspace/types/dashboard";
 
 type contextType = {
     api: { id: number; api: string; method: string }[];
@@ -85,7 +72,7 @@ export function AllApiProvider({ children }: { children: ReactNode }) {
             setDeleteApi(deleteApiData);
             setGetApi(getApiData);
 
-            const apiListData: apiListType = { get: [], post: [], put: [],patch: [], delete: [], all: [] };
+            const apiListData: apiListType = { get: [], post: [], put: [], patch: [], delete: [], all: [] };
 
             Object.entries(getApiData).forEach(([key, value]) => {
                 apiListData.all.push({
@@ -126,7 +113,7 @@ export function AllApiProvider({ children }: { children: ReactNode }) {
                     api: key,
                     method: value.method,
                 });
-            })
+            });
             Object.entries(deleteApiData).forEach(([key, value]) => {
                 apiListData.all.push({
                     api: key,

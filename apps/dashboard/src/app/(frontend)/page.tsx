@@ -1,7 +1,6 @@
-import AllApi from "@/module/all-api/ui/page";
+import Api from "@/module/all-api/ui/helper";
+import React from "react";
 
-export default function Home() {
-    return (
-        <div>hello</div>
-    )
+export default function page() {
+    return <Api method="all" />;
 }

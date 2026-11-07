@@ -10,7 +10,7 @@ export default function ApiListTable({ api }: { api: {api: string; method: strin
                     <h3 className="font-semibold text-lg text-gray-800">API Endpoints</h3>
                     <p className="text-sm text-gray-400 mt-1">Manage your registered API endpoints</p>
                 </div>
-                <span className="text-xs font-medium text-green-700 bg-green-50 border border-green-100 px-3 py-1.5 rounded-full">6 Active</span>
+                <span className="text-xs font-medium text-green-700 bg-green-50 border border-green-100 px-3 py-1.5 rounded-full">{api.length} Active</span>
             </div>
 
             <table className="w-full border-collapse">
