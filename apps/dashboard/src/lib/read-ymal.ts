@@ -1,3 +1,4 @@
+"use server"
 import { apiType } from "@workspace/types/api-type";
 import { yamlParser } from "@workspace/util/yaml-parser";
 
