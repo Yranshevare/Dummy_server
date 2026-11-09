@@ -29,6 +29,9 @@ export default function Page({ params }: { params: Promise<{ method: allowMethod
                 case "delete":
                     console.log(deleteApi[api]);
                     break;
+                default:
+                    console.log("not found");
+                    // render appropriate UI
             }
             
         })();
