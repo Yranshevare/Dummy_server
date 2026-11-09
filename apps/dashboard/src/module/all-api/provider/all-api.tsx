@@ -9,7 +9,7 @@ import readYaml from "@/lib/read-ymal";
 import { apiType } from "@workspace/types/api-type";
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { GET_PATH, POST_PATH, PUT_PATH, PATCH_PATH, DELETE_PATH } from "@workspace/util/constant";
-import { apiListType } from "@workspace/types/dashboard";
+import { allowMethods, apiListType } from "@workspace/types/dashboard";
 
 type contextType = {
     api: { id: number; api: string; method: string }[];
@@ -77,51 +77,51 @@ export function AllApiProvider({ children }: { children: ReactNode }) {
             Object.entries(getApiData).forEach(([key, value]) => {
                 apiListData.all.push({
                     api: key,
-                    method: value.method,
+                    method: value.method.toLowerCase() as allowMethods,
                 });
                 apiListData.get.push({
                     api: key,
-                    method: value.method,
+                    method: value.method.toLowerCase() as allowMethods,
                 });
             });
             Object.entries(postApiData).forEach(([key, value]) => {
                 apiListData.all.push({
                     api: key,
-                    method: value.method,
+                    method: value.method.toLowerCase() as allowMethods,
                 });
                 apiListData.post.push({
                     api: key,
-                    method: value.method,
+                    method: value.method.toLowerCase() as allowMethods,
                 });
             });
             Object.entries(putApiData).forEach(([key, value]) => {
                 apiListData.all.push({
                     api: key,
-                    method: value.method,
+                    method: value.method.toLowerCase() as allowMethods,
                 });
                 apiListData.put.push({
                     api: key,
-                    method: value.method,
+                    method: value.method.toLowerCase() as allowMethods,
                 });
             });
             Object.entries(patchApiData).forEach(([key, value]) => {
                 apiListData.all.push({
                     api: key,
-                    method: value.method,
+                    method: value.method.toLowerCase() as allowMethods,
                 });
                 apiListData.patch.push({
                     api: key,
-                    method: value.method,
+                    method: value.method.toLowerCase() as allowMethods,
                 });
             });
             Object.entries(deleteApiData).forEach(([key, value]) => {
                 apiListData.all.push({
                     api: key,
-                    method: value.method,
+                    method: value.method.toLowerCase() as allowMethods,
                 });
                 apiListData.delete.push({
                     api: key,
-                    method: value.method,
+                    method: value.method.toLowerCase() as allowMethods,
                 });
             });
 
