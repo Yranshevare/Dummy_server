@@ -4,7 +4,7 @@ import { useState } from "react";
 import ApiListTable from "@/module/all-api/ui/api-list-table";
 import SearchBar from "@/module/all-api/ui/search-bar";
 import { Separator } from "@base-ui/react";
-import { Plus, Activity, Search, SlidersHorizontal } from "lucide-react";
+import { Plus, Activity, Search  } from "lucide-react";
 import { allowMethods } from "@workspace/types/dashboard";
 import ApiCardLayout from "./api-card-layout";
 
