@@ -123,10 +123,10 @@ export default function SpecificApi({
                 </Link>
                 <span>/</span>
                 <Link href="/all-api" className="hover:text-gray-700">
-                    All APIs
+                    {apiData.method}
                 </Link>
                 <span>/</span>
-                <span className="text-gray-700 font-semibold">{apiData.api}</span>
+                <span className="text-gray-700 font-semibold">View</span>
             </div>
 
             {/* Page Header */}

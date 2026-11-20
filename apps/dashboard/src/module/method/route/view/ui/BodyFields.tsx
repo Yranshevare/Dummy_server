@@ -42,7 +42,7 @@ function BodyFields({ data, depth = 0 }: { data: Record<string, any>; depth?: nu
                                     <p className="text-xs text-blue-800">
                                         Expected value: <code className="font-semibold">{JSON.stringify(field.equals.value)}</code>
                                     </p>
-                                    <ErrorDetails error={field.equals.error} />
+                                    <ErrorDetails error={field.equals.error} title="Value" />
                                 </div>
                             )}
 
@@ -55,7 +55,7 @@ function BodyFields({ data, depth = 0 }: { data: Record<string, any>; depth?: nu
                             )}
 
                             <ErrorDetails error={field.error} />
-                            {field.type?.error && <ErrorDetails error={field.type.error} />}
+                            {field.type?.error && <ErrorDetails error={field.type.error} title="Type" />}
                         </div>
                     </div>
                 );

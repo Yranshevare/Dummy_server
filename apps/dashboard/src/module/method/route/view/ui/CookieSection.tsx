@@ -27,8 +27,8 @@ function CookieSection({ data, type }: { data: Record<string, any>; type: "get" 
                             {cookie.equals && <p className="text-xs text-blue-700 mt-2">Expected value: {JSON.stringify(cookie.equals.value)}</p>}
 
                             <ErrorDetails error={cookie.error} />
-                            {cookie.type?.error && <ErrorDetails error={cookie.type.error} />}
-                            {cookie.equals?.error && <ErrorDetails error={cookie.equals.error} />}
+                            {cookie.type?.error && <ErrorDetails error={cookie.type.error} title="Type" />}
+                            {cookie.equals?.error && <ErrorDetails error={cookie.equals.error} title="Value" />}
                         </>
                     ) : (
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-3">

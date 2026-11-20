@@ -1,7 +1,7 @@
 import { ShieldAlert } from "lucide-react";
 import JsonViewer from "./JsonViewer";
 
-function ErrorDetails({ error }: { error: any }) {
+function ErrorDetails({ error, title = "" }: { error: any, title?:string }) {
     if (!error) return null;
 
     return (
@@ -9,7 +9,7 @@ function ErrorDetails({ error }: { error: any }) {
             <summary className="flex items-center justify-between px-3 py-2.5 cursor-pointer list-none">
                 <div className="flex items-center gap-2 text-red-700">
                     <ShieldAlert size={15} />
-                    <span className="text-xs font-semibold">Error Configuration</span>
+                    <span className="text-xs font-semibold">{title} Error Configuration</span>
                 </div>
 
                 <div className="flex items-center gap-2">
