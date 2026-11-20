@@ -106,13 +106,12 @@ export default function SpecificApi({
         );
     }
 
-    const hasParams = Object.keys(apiData.params || {}).length > 0;
     const hasQuery = Object.keys(apiData.query || {}).length > 0;
     const hasBody = Object.keys(apiData.body || {}).length > 0;
     const hasGetCookies = Object.keys(apiData.getCookies || {}).length > 0;
     const hasSetCookies = Object.keys(apiData.setCookies || {}).length > 0;
 
-    const hasRequestConfig = hasParams || hasQuery || hasBody || hasGetCookies || hasSetCookies;
+    const hasRequestConfig =  hasQuery || hasBody || hasGetCookies || hasSetCookies;
 
     return (
         <div className="w-full min-w-0 flex flex-col px-6 lg:px-10 py-6">
@@ -203,16 +202,7 @@ export default function SpecificApi({
 
                 {hasRequestConfig ? (
                     <div className="grid grid-cols-1  gap-5 items-start">
-                        {hasParams && (
-                            <Section
-                                title="Route Parameters"
-                                description="Dynamic URL parameters"
-                                icon={Globe}
-                                count={Object.keys(apiData.params!).length}
-                            >
-                                <SimpleConfigTable data={apiData.params!} type="params" />
-                            </Section>
-                        )}
+                        
 
                         {hasQuery && (
                             <Section

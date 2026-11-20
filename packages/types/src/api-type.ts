@@ -9,7 +9,6 @@ type apiData = {
     responseStatus: number;
     setCookies?: Record<string, setCookie>;
     getCookies?: Record<string, getCookie>;
-    params?: Record<string, string>;
     query?: Record<string, query>;
     body?: Record<string, body>;
 };

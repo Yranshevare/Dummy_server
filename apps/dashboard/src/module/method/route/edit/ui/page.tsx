@@ -27,7 +27,6 @@ export default function Builder({ params }: { params: Promise<{ method: string; 
     const [method, setMethod] = useState<Method>("get");
     const [route, setRoute] = useState("");
 
-    const [paramsData, setParamsData] = useState<Record<string, string>>({});
     const [query, setQuery] = useState<Record<string, any>>({});
     const [body, setBody] = useState<Record<string, any>>({});
     const [getCookies, setGetCookies] = useState<Record<string, any>>({});
@@ -60,8 +59,6 @@ export default function Builder({ params }: { params: Promise<{ method: string; 
             matches.forEach((match) => {
                 initialParams[match.slice(1)] = "";
             });
-
-            setParamsData(initialParams);
         }
 
         loadRoute();
@@ -103,7 +100,7 @@ export default function Builder({ params }: { params: Promise<{ method: string; 
             latency: latency ? Number(latency) : undefined,
             response: parsedResponse,
             responseStatus,
-            params: Object.keys(paramsData).length > 0 ? paramsData : undefined,
+            // params: Object.keys(paramsData).length > 0 ? paramsData : undefined,
             query: Object.keys(query).length > 0 ? query : undefined,
             body: Object.keys(body).length > 0 ? body : undefined,
             getCookies: Object.keys(getCookies).length > 0 ? getCookies : undefined,
