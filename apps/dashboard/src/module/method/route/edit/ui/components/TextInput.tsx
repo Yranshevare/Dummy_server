@@ -1,4 +1,4 @@
-import { inputClass, labelClass } from "../style/style";
+import { inputClass, labelClass } from "../../style/style";
 
 export default function TextInput({
     label,

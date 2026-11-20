@@ -1,4 +1,4 @@
-import { labelClass, selectClass } from "../style/style";
+import { labelClass, selectClass } from "../../style/style";
 
 export default function SelectInput({ label, value, onChange, options }: { label: string; value: string; onChange: (value: string) => void; options: string[] }) {
     return (

@@ -2,7 +2,7 @@ import { AlertCircle, ChevronDown } from "lucide-react";
 import TextInput from "./TextInput";
 import TextArea from "./TextArea";
 import { useState } from "react";
-import { ErrorConfig } from "../type";
+import { ErrorConfig } from "../../type";
 
 export default function ErrorEditor({ title, value, onChange }: { title: string; value: ErrorConfig; onChange: (value: ErrorConfig) => void }) {
     const [expanded, setExpanded] = useState(false);

@@ -1,4 +1,4 @@
-import { labelClass } from "../style/style";
+import { labelClass } from "../../style/style";
 
 export default function TextArea({
     label,
