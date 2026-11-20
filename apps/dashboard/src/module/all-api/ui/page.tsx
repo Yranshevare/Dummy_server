@@ -4,9 +4,10 @@ import { useState } from "react";
 import ApiListTable from "@/module/all-api/ui/api-list-table";
 import SearchBar from "@/module/all-api/ui/search-bar";
 import { Separator } from "@base-ui/react";
-import { Plus, Activity, Search  } from "lucide-react";
+import { Plus, Activity, Search } from "lucide-react";
 import { allowMethods } from "@workspace/types/dashboard";
 import ApiCardLayout from "./api-card-layout";
+import AddButton from "./add-button";
 
 type Api = {
     api: string;
@@ -52,10 +53,7 @@ export default function AllApi({ method, apiList }: { method: allowMethods; apiL
                     </p>
                 </div>
 
-                <button className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 transition-colors shadow-sm shrink-0">
-                    <Plus size={17} />
-                    Add API
-                </button>
+                <AddButton />
             </div>
 
             <Separator className="my-7 bg-gray-200" />
@@ -117,7 +115,10 @@ export default function AllApi({ method, apiList }: { method: allowMethods; apiL
                         </p>
 
                         {searchQuery && (
-                            <button onClick={() => setSearchQuery("")} className="mt-4 text-sm font-medium cursor-pointer bg-gray-800  text-white px-4 py-2 rounded-lg hover:underline">
+                            <button
+                                onClick={() => setSearchQuery("")}
+                                className="mt-4 text-sm font-medium cursor-pointer bg-gray-800  text-white px-4 py-2 rounded-lg hover:underline"
+                            >
                                 Clear search
                             </button>
                         )}
