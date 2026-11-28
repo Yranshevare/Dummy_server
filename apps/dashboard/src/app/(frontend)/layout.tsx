@@ -4,6 +4,7 @@ import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import NavBar from "@/components/nav-bar";
 import { AllApiProvider } from "@/module/all-api/provider/all-api";
+import { Suspense } from "react";
 
 const poppins = Poppins({
     variable: "--font-poppins",
@@ -24,7 +25,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <html lang="en" className={`${poppins.variable} h-full antialiased`}>
             <body className="min-h-full flex flex-col font-poppins">
                 <SidebarProvider style={{ "--sidebar-width-icon": "4rem" } as React.CSSProperties}>
-                    <NavBar />
+                    <Suspense fallback={<div className="h-16 w-full animate-pulse bg-muted" />}>
+                        <NavBar />
+                    </Suspense>
                     <SidebarTrigger />
                     <AllApiProvider>{children}</AllApiProvider>
                 </SidebarProvider>

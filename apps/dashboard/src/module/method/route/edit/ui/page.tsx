@@ -17,6 +17,7 @@ import GetCookies from "./get-cookies";
 import SetCookies from "./set-cookies";
 import Header from "./header";
 import Basic from "./basic";
+import { query } from "@workspace/types/query-type";
 
 export const methods: Method[] = ["get", "post", "put", "patch", "delete"];
 
@@ -26,7 +27,7 @@ export default function Builder({ params }: { params: Promise<{ method: string; 
     const [method, setMethod] = useState<Method>("get");
     const [route, setRoute] = useState("");
 
-    const [query, setQuery] = useState<Record<string, any>>({});
+    const [query, setQuery] = useState<Record<string, query>>({});
     const [body, setBody] = useState<Record<string, any>>({});
     const [getCookies, setGetCookies] = useState<Record<string, any>>({});
     const [setCookies, setSetCookies] = useState<Record<string, any>>({});
@@ -111,6 +112,10 @@ export default function Builder({ params }: { params: Promise<{ method: string; 
         alert("Configuration generated successfully. Check console.");
     };
 
+    useEffect(() => {
+        console.log(query)
+    },[query])
+
     return (
         <div className="w-full min-w-0 flex flex-col px-6 lg:px-10 py-6">
             {/* Breadcrumb */}
@@ -134,7 +139,7 @@ export default function Builder({ params }: { params: Promise<{ method: string; 
                 {/* Query */}
                 <Section title="Query Parameters" description="Configure query string fields and their validation" icon={Code2} optional>
                     {Object.entries(query).map(([key, field]) => (
-                        <Query key={key} field={field} setQuery={setQuery} />
+                        <Query key={key} queryKey={key} field={field} setQuery={setQuery} />
                     ))}
 
                     <AddFieldButton

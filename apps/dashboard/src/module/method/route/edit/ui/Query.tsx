@@ -8,27 +8,29 @@ import updateRecordField from "../util/updateRecordField";
 import makeError from "../util/makeError";
 import renameRecordField from "../util/renameRecordField";
 import removeRecordField from "../util/removeRecordField";
+import { query } from "@workspace/types/query-type";
 
-export default function Query({ key, field, setQuery }: { key: string; field: any; setQuery: React.SetStateAction<(prev: any) => void> }) {
+export default function Query({ queryKey, field, setQuery }: { queryKey: string; field: query; setQuery: React.SetStateAction<(prev: any) => void> }) {
+    
     return (
-        <div key={key} className="p-4 border border-gray-200 rounded-lg space-y-4">
+        <div  className="p-4 border border-gray-200 rounded-lg space-y-4">
             <div className="flex items-center justify-between gap-3">
                 <p className="text-xs font-semibold text-gray-800">Query Field</p>
 
-                <button type="button" onClick={() => setQuery((prev) => removeRecordField(prev, key))} className="text-gray-400 hover:text-red-600">
+                <button type="button" onClick={() => setQuery((prev) => removeRecordField(prev, queryKey))} className="text-gray-400 hover:text-red-600">
                     <Trash2 size={15} />
                 </button>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <TextInput label="Field Name" value={key} onChange={(v) => setQuery((prev) => renameRecordField(prev, key, v))} placeholder="page" />
+                <TextInput label="Field Name" value={queryKey} onChange={(v) => setQuery((prev) => renameRecordField(prev, queryKey, v))} placeholder="page" />
 
                 <SelectInput
                     label="Data Type"
                     value={field.type?.type || "string"}
                     onChange={(v) =>
                         setQuery((prev) =>
-                            updateRecordField(prev, key, {
+                            updateRecordField(prev, queryKey, {
                                 ...field,
                                 type: {
                                     ...field.type,
@@ -45,13 +47,13 @@ export default function Query({ key, field, setQuery }: { key: string; field: an
             <Toggle
                 label="Required"
                 checked={field.required}
-                onChange={(v) => setQuery((prev) => updateRecordField(prev, key, { ...field, required: v }))}
+                onChange={(v) => setQuery((prev) => updateRecordField(prev, queryKey, { ...field, required: v }))}
             />
 
             <ErrorEditor
                 title="Query Validation Error"
                 value={field.error || makeError()}
-                onChange={(v) => setQuery((prev) => updateRecordField(prev, key, { ...field, error: v }))}
+                onChange={(v) => setQuery((prev) => updateRecordField(prev, queryKey, { ...field, error: v }))}
             />
 
             <ErrorEditor
@@ -59,7 +61,7 @@ export default function Query({ key, field, setQuery }: { key: string; field: an
                 value={field.type?.error || makeError()}
                 onChange={(v) =>
                     setQuery((prev) =>
-                        updateRecordField(prev, key, {
+                        updateRecordField(prev, queryKey, {
                             ...field,
                             type: { ...field.type, error: v },
                         })
